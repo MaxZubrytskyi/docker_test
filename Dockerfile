@@ -1,5 +1,5 @@
-FROM alpine
+FROM arm64v8/ubuntu:18.04
 
-RUN apk add --no-cache --upgrade bash
+RUN ap-get update
 
 CMD ping localhost
