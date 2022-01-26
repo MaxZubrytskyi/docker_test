@@ -25,7 +25,3 @@ steps:
       include:
       - Dockerfile
 
-trigger:
-  event:
-  - push
-  - tag
