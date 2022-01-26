@@ -12,6 +12,7 @@ steps:
   image: plugins/docker:18
   settings:
     dockerfile: Dockerfile
+    registry: quay.io
     repo: quay.io/logivations/l4t-ros-tf
     auto_tag: "true"
     auto_tag_suffix: linux-amd64
