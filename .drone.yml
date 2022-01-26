@@ -21,9 +21,8 @@ steps:
     password:
       from_secret: docker_password
   when:
-    event:
-    - push
-    - tag
+    paths:
+    - Dockerfile
 
 trigger:
   event:
