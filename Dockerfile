@@ -1,5 +1,5 @@
 FROM ubuntu:18.04
 
-RUN ap-get update
+RUN apt update && apt install nano -y
 
 CMD /bin/bash
