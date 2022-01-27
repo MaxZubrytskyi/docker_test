@@ -1,14 +1,14 @@
 ---
 kind: pipeline
 type: docker
-name: linux-amd64
+name: ml_all master
 
 platform:
   arch: amd64
   os: linux
 
 steps:
-- name: build latest ml_all image
+- name: Build latest ml_all docker image
   image: plugins/docker
   settings:
     dockerfile: Dockerfile
@@ -31,18 +31,17 @@ trigger:
     include:
     - push
 
-
 ---
 kind: pipeline
 type: docker
-name: linux-amd64-pr
+name: ml_all custome branch
 
 platform:
   arch: amd64
   os: linux
 
 steps:
-- name: build custom ml_all_image
+- name: Build custom ml_all_image
   image: plugins/docker
   settings:
     dockerfile: Dockerfile
