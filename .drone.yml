@@ -35,7 +35,7 @@ trigger:
 ---
 kind: pipeline
 type: docker
-name: linux-amd64
+name: ml_all custome branch
 
 platform:
   arch: amd64
