@@ -31,7 +31,6 @@ trigger:
     include:
     - push
 
-
 ---
 kind: pipeline
 type: docker
