@@ -51,7 +51,6 @@ steps:
     repo: quay.io/logivations/l4t-ros-tf
     privileged: true
     tags:
-      - ${DRONE_PULL_REQUEST}
       - ${DRONE_COMMIT_SHA}
     username:
       from_secret: docker_username
