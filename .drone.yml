@@ -8,24 +8,19 @@ platform:
   os: linux
 
 steps:
-- name: build latest ml_all image
+- name: publish
   image: plugins/docker
   settings:
     dockerfile: Dockerfile
     registry: quay.io
     repo: quay.io/logivations/l4t-ros-tf
-    privileged: true
-    tags:
-      - test_latest
-      - DRONE_COMMIT_SHA
+    auto_tag: "true"
+    auto_tag_suffix: linux-amd64
     username:
       from_secret: docker_username
     password:
       from_secret: docker_password
   when:
     branch: main
-trigger:
-  event:
-    include:
-    - push
+    event: push
 
