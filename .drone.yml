@@ -12,6 +12,7 @@ steps:
   image: plugins/docker
   settings:
     dockerfile: Dockerfile
+    context: .
     registry: quay.io
     repo: quay.io/logivations/l4t-ros-tf
     privileged: true
@@ -29,3 +30,34 @@ trigger:
   event:
     include:
     - push
+
+
+---
+kind: pipeline
+type: docker
+name: linux-amd64-pr
+
+platform:
+  arch: amd64
+  os: linux
+
+steps:
+- name: build custom ml_all_image
+  image: plugins/docker
+  settings:
+    dockerfile: Dockerfile
+    context: .
+    registry: quay.io
+    repo: quay.io/logivations/l4t-ros-tf
+    privileged: true
+    tags:
+      - ${DRONE_PULL_REQUEST}
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+
+trigger:
+  event:
+    include:
+    - pull_request
