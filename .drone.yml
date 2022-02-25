@@ -1,62 +1,33 @@
 ---
+# 1.  PR validation
 kind: pipeline
 type: docker
-name: ml_all master
+name: PR validation build docker image
 
 platform:
   arch: amd64
   os: linux
 
+volumes:
+- name: dockersock
+  host:
+    path: /var/run/docker.sock
+
+image_pull_secrets:
+- dockerconfig_prd
+
 steps:
-- name: Build latest ml_all docker image
-  image: plugins/docker
-  settings:
-    dockerfile: Dockerfile
-    context: .
-    registry: quay.io
-    repo: quay.io/logivations/l4t-ros-tf
-    privileged: true
-    tags:
-      - test_latest
-      - ${DRONE_COMMIT_SHA}
-    username:
-      from_secret: docker_username
-    password:
-      from_secret: docker_password
-  when:
-    branch: main
+- name: Rebuild nav2 and run tests
+  image: ubuntu:latest
+  volumes:
+  - name: dockersock
+    path: /var/run/docker.sock
+  commands: 
+  - ls
+
 
 trigger:
   event:
     include:
     - push
 
----
-kind: pipeline
-type: docker
-name: ml_all custome branch
-
-platform:
-  arch: amd64
-  os: linux
-
-steps:
-- name: Build custom ml_all_image
-  image: plugins/docker
-  settings:
-    dockerfile: Dockerfile
-    context: .
-    registry: quay.io
-    repo: quay.io/logivations/l4t-ros-tf
-    privileged: true
-    tags:
-      - ${DRONE_PULL_REQUEST}
-    username:
-      from_secret: docker_username
-    password:
-      from_secret: docker_password
-
-trigger:
-  event:
-    include:
-    - pull_request
