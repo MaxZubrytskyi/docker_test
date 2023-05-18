@@ -1,33 +1,22 @@
 ---
-# 1.  PR validation
+# 2/3 PR validation
 kind: pipeline
 type: docker
-name: PR validation build docker image
+name: TEST JOB
 
 platform:
   arch: amd64
   os: linux
 
-volumes:
-- name: dockersock
-  host:
-    path: /var/run/docker.sock
+clone:
+  disable: true
 
-image_pull_secrets:
-- dockerconfig_prd
+node:
+  build: test
 
 steps:
-- name: Rebuild nav2 and run tests
-  image: ubuntu:latest
-  volumes:
-  - name: dockersock
-    path: /var/run/docker.sock
-  commands: 
-  - ls
-
-
-trigger:
-  event:
-    include:
-    - push
+- name: test step1
+  image: plugins/git
+  commands:
+  - sleep 800
 
